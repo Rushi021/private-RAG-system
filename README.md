@@ -1,169 +1,108 @@
-# Private Healthcare RAG System
+# VaultMind
 
-> **This repository is maintained by [Rushi021](https://github.com/Rushi021).** It is a **personal fork** used for a private healthcare-oriented RAG deployment. It is **not** the official PrivateGPT / Zylon organization repo.
->
-> **Upstream:** This project is based on [PrivateGPT](https://github.com/zylon-ai/private-gpt) (Apache-2.0). See [`LICENSE`](LICENSE) for the full license. The git history includes upstream commits from that project.
+**VaultMind** — a fully private, local RAG system for secure document intelligence. Your data never leaves your machine.
 
-The sections below are largely the original **PrivateGPT** documentation (badges and links may point to the upstream project).
+Portfolio project by [Rushi021](https://github.com/Rushi021). Clone and run on your laptop:
 
----
-
-## Upstream: PrivateGPT
-
-<a href="https://trendshift.io/repositories/2601" target="_blank"><img src="https://trendshift.io/api/badge/repositories/2601" alt="imartinez%2FprivateGPT | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-
-[![Tests](https://github.com/zylon-ai/private-gpt/actions/workflows/tests.yml/badge.svg)](https://github.com/zylon-ai/private-gpt/actions/workflows/tests.yml?query=branch%3Amain)
-[![Website](https://img.shields.io/website?up_message=check%20it&down_message=down&url=https%3A%2F%2Fdocs.privategpt.dev%2F&label=Documentation)](https://docs.privategpt.dev/)
-[![Discord](https://img.shields.io/discord/1164200432894234644?logo=discord&label=PrivateGPT)](https://discord.gg/bK6mRVpErU)
-[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/ZylonPrivateGPT)](https://twitter.com/ZylonPrivateGPT)
-
-![Gradio UI](/fern/docs/assets/ui.png?raw=true)
-
-PrivateGPT -built by Zylon- is a production-ready AI project that allows you to ask questions about your documents using the power
-of Large Language Models (LLMs), even in scenarios without an Internet connection. 100% private, no data leaves your
-execution environment at any point.
-
->[!TIP]
-> If you are looking for an **enterprise-ready, fully private AI platform for regulated industries** like financial services (banks, insurance, investment), defense, critical infrastructure services, government and healthcare,
-> check out [Zylon's website](https://zylon.ai)  or [request a demo](https://cal.com/zylon/demo?source=pgpt-readme).
-> **Zylon** is an enterprise AI platform delivering private generative AI and on-premise AI software for regulated industries, enabling secure deployment inside enterprise infrastructure without external cloud dependencies.
-
-The project provides an API offering all the primitives required to build private, context-aware AI applications.
-It follows and extends the [OpenAI API standard](https://openai.com/blog/openai-api),
-and supports both normal and streaming responses.
-
-The API is divided into two logical blocks:
-
-**High-level API**, which abstracts all the complexity of a RAG (Retrieval Augmented Generation)
-pipeline implementation:
-- Ingestion of documents: internally managing document parsing,
-splitting, metadata extraction, embedding generation and storage.
-- Chat & Completions using context from ingested documents:
-abstracting the retrieval of context, the prompt engineering and the response generation.
-
-**Low-level API**, which allows advanced users to implement their own complex pipelines:
-- Embeddings generation: based on a piece of text.
-- Contextual chunks retrieval: given a query, returns the most relevant chunks of text from the ingested documents.
-
-In addition to this, a working [Gradio UI](https://www.gradio.app/)
-client is provided to test the API, together with a set of useful tools such as bulk model
-download script, ingestion script, documents folder watch, etc.
-
-## 🎞️ Overview
->[!WARNING]
->  This README is not updated as frequently as the [documentation](https://docs.privategpt.dev/).
->  Please check it out for the latest updates!
-
-### Motivation behind PrivateGPT
-Generative AI is a game changer for our society, but adoption in companies of all sizes and data-sensitive
-domains like healthcare or legal is limited by a clear concern: **privacy**.
-Not being able to ensure that your data is fully under your control when using third-party AI tools
-is a risk those industries cannot take.
-
-### Primordial version
-The first version of PrivateGPT was launched in May 2023 as a novel approach to address the privacy
-concerns by using LLMs in a complete offline way.
-
-That version, which rapidly became a go-to project for privacy-sensitive setups and served as the seed
-for thousands of local-focused generative AI projects, was the foundation of what PrivateGPT is becoming nowadays;
-thus a simpler and more educational implementation to understand the basic concepts required
-to build a fully local -and therefore, private- chatGPT-like tool.
-
-If you want to keep experimenting with it, we have saved it in the
-[primordial branch](https://github.com/zylon-ai/private-gpt/tree/primordial) of the project.
-
-> It is strongly recommended to do a clean clone and install of this new version of
-PrivateGPT if you come from the previous, primordial version.
-
-### Present and Future of PrivateGPT
-PrivateGPT is now evolving towards becoming a gateway to generative AI models and primitives, including
-completions, document ingestion, RAG pipelines and other low-level building blocks.
-We want to make it easier for any developer to build AI applications and experiences, as well as provide
-a suitable extensive architecture for the community to keep contributing.
-
-Stay tuned to our [releases](https://github.com/zylon-ai/private-gpt/releases) to check out all the new features and changes included.
-
-## 📄 Documentation
-Full documentation on installation, dependencies, configuration, running the server, deployment options,
-ingesting local documents, API details and UI features can be found here: https://docs.privategpt.dev/
-
-## 🧩 Architecture
-Conceptually, PrivateGPT is an API that wraps a RAG pipeline and exposes its
-primitives.
-* The API is built using [FastAPI](https://fastapi.tiangolo.com/) and follows
-  [OpenAI's API scheme](https://platform.openai.com/docs/api-reference).
-* The RAG pipeline is based on [LlamaIndex](https://www.llamaindex.ai/).
-
-The design of PrivateGPT allows to easily extend and adapt both the API and the
-RAG implementation. Some key architectural decisions are:
-* Dependency Injection, decoupling the different components and layers.
-* Usage of LlamaIndex abstractions such as `LLM`, `BaseEmbedding` or `VectorStore`,
-  making it immediate to change the actual implementations of those abstractions.
-* Simplicity, adding as few layers and new abstractions as possible.
-* Ready to use, providing a full implementation of the API and RAG
-  pipeline.
-
-Main building blocks:
-* APIs are defined in `private_gpt:server:<api>`. Each package contains an
-  `<api>_router.py` (FastAPI layer) and an `<api>_service.py` (the
-  service implementation). Each *Service* uses LlamaIndex base abstractions instead
-  of specific implementations,
-  decoupling the actual implementation from its usage.
-* Components are placed in
-  `private_gpt:components:<component>`. Each *Component* is in charge of providing
-  actual implementations to the base abstractions used in the Services - for example
-  `LLMComponent` is in charge of providing an actual implementation of an `LLM`
-  (for example `LlamaCPP` or `OpenAI`).
-
-## 💡 Contributing
-Contributions are welcomed! To ensure code quality we have enabled several format and
-typing checks, just run `make check` before committing to make sure your code is ok.
-Remember to test your code! You'll find a tests folder with helpers, and you can run
-tests using `make test` command.
-
-Don't know what to contribute? Here is the public 
-[Project Board](https://github.com/users/imartinez/projects/3) with several ideas. 
-
-Head over to Discord 
-#contributors channel and ask for write permissions on that GitHub project.
-
-## 💬 Community
-Join the conversation around PrivateGPT on our:
-- [Twitter (aka X)](https://twitter.com/PrivateGPT_AI)
-- [Discord](https://discord.gg/bK6mRVpErU)
-
-## 📖 Citation
-If you use PrivateGPT in a paper, check out the [Citation file](CITATION.cff) for the correct citation.  
-You can also use the "Cite this repository" button in this repo to get the citation in different formats.
-
-Here are a couple of examples:
-
-#### BibTeX
-```bibtex
-@software{Zylon_PrivateGPT_2023,
-author = {Zylon by PrivateGPT},
-license = {Apache-2.0},
-month = may,
-title = {{PrivateGPT}},
-url = {https://github.com/zylon-ai/private-gpt},
-year = {2023}
-}
+```bash
+git clone https://github.com/Rushi021/private-RAG-system.git
+cd private-RAG-system
 ```
 
-#### APA
-```
-Zylon by PrivateGPT (2023). PrivateGPT [Computer software]. https://github.com/zylon-ai/private-gpt
+## Problem VaultMind solves
+
+Teams and developers often need to ask questions over sensitive documents (clinical notes, SOPs, internal guidelines, policy docs) without sending that data to public SaaS tools.
+
+Most generic AI chat tools are not designed for strict privacy boundaries, local control, or domain-specific retrieval quality. **VaultMind** is a private, controllable RAG backend that runs locally and can be exposed only where you choose.
+
+## What VaultMind is
+
+**VaultMind** is a Retrieval-Augmented Generation (RAG) system (built on PrivateGPT foundations) focused on secure, local document intelligence.
+
+It lets you:
+- ingest your own documents,
+- create embeddings and searchable vector indexes,
+- query them through an OpenAI-style API,
+- use a built-in Gradio UI for interactive usage.
+
+By default, **VaultMind** is designed for local/private operation, with optional cloud model integrations based on configuration.
+
+## What it is good at
+
+- **Private document Q&A:** keeps document retrieval and response generation under your control.
+- **Flexible model backends:** supports local (`llamacpp`, `ollama`) and cloud-style providers through profile settings.
+- **API-first architecture:** easy to integrate into internal apps and workflows via HTTP endpoints.
+- **Structured ingestion flow:** document upload, indexing, retrieval, chat/completions, and summarization are separated cleanly.
+- **Config-driven deployment:** switch profiles with YAML/env vars instead of rewriting code.
+
+## How to use it
+
+### 1) Install dependencies
+
+Use Python 3.11 and Poetry. Install dependencies with the extras needed for your selected profile (example for local llama.cpp + HF embeddings + qdrant + UI):
+
+```bash
+poetry install --extras "ui llms-llama-cpp vector-stores-qdrant embeddings-huggingface"
 ```
 
-## 🤗 Partners & Supporters
-PrivateGPT is actively supported by the teams behind:
-* [Qdrant](https://qdrant.tech/), providing the default vector database
-* [Fern](https://buildwithfern.com/), providing Documentation and SDKs
-* [LlamaIndex](https://www.llamaindex.ai/), providing the base RAG framework and abstractions
+### 2) Pick/confirm config
 
-This project has been strongly influenced and supported by other amazing projects like 
-[LangChain](https://github.com/hwchase17/langchain),
-[GPT4All](https://github.com/nomic-ai/gpt4all),
-[LlamaCpp](https://github.com/ggerganov/llama.cpp),
-[Chroma](https://www.trychroma.com/)
-and [SentenceTransformers](https://www.sbert.net/).
+Start from `settings.yaml` or a profile file like:
+- `settings-local.yaml`
+- `settings-ollama.yaml`
+- `settings-openai.yaml`
+- `settings-docker.yaml`
+
+Current default profile expects:
+- `llm.mode: llamacpp`
+- `embedding.mode: huggingface`
+- `vectorstore.database: qdrant`
+- server on port `8001`
+
+### 3) Download models (if running local mode)
+
+```bash
+make setup
+```
+
+This fetches the configured embedding model and local GGUF LLM artifacts.
+
+### 4) Run the server
+
+```bash
+make run
+```
+
+For local development:
+
+```bash
+make dev-windows
+```
+
+### 5) Docker (local build only)
+
+From the repository root, build and start services from source (no published **VaultMind** image is required):
+
+```bash
+docker compose up --build
+```
+
+Dependency images (e.g. Ollama, Traefik) may still be pulled from public registries as defined in `docker-compose.yaml`.
+
+### 6) Ingest documents and ask questions
+
+- Use API routes under `/v1` (`/ingest/file`, `/chat/completions`, `/chunks`, `/summarize`, etc.).
+- Or use the Gradio UI (enabled by `ui.enabled: true`).
+
+## High-level architecture
+
+- `private_gpt/components/`: LLM, embedding, ingest, vector store wiring (Python package name remains `private_gpt` — internal identifier).
+- `private_gpt/server/`: API routers and services
+- `private_gpt/settings/`: YAML + env profile loading
+- `scripts/`: setup and ingestion helpers
+- `local_data/`, `models/`: runtime storage for indexes and model files
+
+## Notes
+
+- **VaultMind** is an independently maintained portfolio project and is not the official upstream PrivateGPT repository.
+- Derived from the open-source PrivateGPT codebase, licensed under Apache-2.0. See [`LICENSE`](LICENSE).

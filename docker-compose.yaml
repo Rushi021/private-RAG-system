@@ -1,13 +1,15 @@
+# VaultMind — Private RAG System
+
 services:
 
   #-----------------------------------
-  #---- Private-GPT services ---------
+  #---- Application services ----------
   #-----------------------------------
 
-  # Private-GPT service for the Ollama CPU and GPU modes
+  # App service for the Ollama CPU and GPU modes
   # This service builds from an external Dockerfile and runs the Ollama mode.
   private-gpt-ollama:
-    image: ${PGPT_IMAGE:-zylonai/private-gpt}:${PGPT_TAG:-0.6.2}-ollama  # x-release-please-version
+    image: vaultmind:local-ollama
     user: root
     build:
       context: .
@@ -32,10 +34,10 @@ services:
       ollama:
         condition: service_healthy
 
-  # Private-GPT service for the local mode
+  # App service for the local mode
   # This service builds from a local Dockerfile and runs the application in local mode.
   private-gpt-llamacpp-cpu:
-    image: ${PGPT_IMAGE:-zylonai/private-gpt}:${PGPT_TAG:-0.6.2}-llamacpp-cpu # x-release-please-version
+    image: vaultmind:local-llamacpp-cpu
     user: root
     build:
       context: .

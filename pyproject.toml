@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "private-gpt"
 version = "0.6.2"
-description = "Private GPT"
-authors = ["Zylon <hi@zylon.ai>"]
+description = "VaultMind — a private RAG system for secure local document intelligence"
+authors = ["Rushi021"]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
-# PrivateGPT
+# Private RAG application (Poetry package name unchanged: private-gpt).
 fastapi = { extras = ["all"], version = "^0.115.0" }
 python-multipart = "^0.0.10"
 injector = "^0.22.0"

@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://docs.privategpt.dev
-    about: Please refer to our documentation for more details and guidance.
+    url: https://github.com/Rushi021/private-RAG-system
+    about: README in this repository has setup and usage instructions.
   - name: Discord
     url: https://discord.gg/bK6mRVpErU
     about: Join our Discord community to ask questions and get help.

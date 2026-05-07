@@ -1,5 +1,5 @@
 # The default configuration file.
-# More information about configuration can be found in the documentation: https://docs.privategpt.dev/
+# See README.md in this repository for configuration guidance.
 # Syntax in `private_pgt/settings/settings.py`
 server:
   env_name: ${APP_ENV:prod}
