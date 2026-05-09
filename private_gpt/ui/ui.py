@@ -294,9 +294,15 @@ class PrivateGptUi:
             files.add(file_name)
         return [[row] for row in files]
 
-    def _upload_file(self, files: list[str]) -> None:
-        logger.debug("Loading count=%s files", len(files))
-        paths = [Path(file) for file in files]
+    def _upload_file(
+        self, files: list[str] | str | None
+    ) -> list[list[str]]:
+        """Return updated rows for `gr.List` so the UI clears the upload spinner."""
+        if not files:
+            return self._list_ingested_files()
+        path_strs = [files] if isinstance(files, str) else list(files)
+        logger.debug("Loading count=%s files", len(path_strs))
+        paths = [Path(file) for file in path_strs]
 
         # remove all existing Documents with name identical to a new file upload:
         file_names = [path.name for path in paths]
@@ -316,6 +322,7 @@ class PrivateGptUi:
                 self._ingest_service.delete(doc_id)
 
         self._ingest_service.bulk_ingest([(str(path.name), path) for path in paths])
+        return self._list_ingested_files()
 
     def _delete_all_files(self) -> Any:
         ingested_files = self._ingest_service.list_ingested()
