@@ -2,6 +2,13 @@
 
 Project formerly based on PrivateGPT. Rebranded to VaultMind by Rushi021.
 
+## [0.6.3](https://github.com/Rushi021/private-RAG-system/compare/v0.6.2...v0.6.3) (2026-06-01)
+
+
+### Bug Fixes
+
+* **ui:** return ingested file list after upload for Gradio ([1ce68cf](https://github.com/Rushi021/private-RAG-system/commit/1ce68cfc1054670fb300130d41b1b96f2c4ec7f5))
+
 ## [0.6.2](https://github.com/Rushi021/private-RAG-system/compare/v0.6.1...v0.6.2) (2024-08-08)
 
 
@@ -173,5 +180,3 @@ Project formerly based on PrivateGPT. Rebranded to VaultMind by Rushi021.
 ### Miscellaneous Chores
 
 * Initial version ([490d93f](https://github.com/imartinez/privateGPT/commit/490d93fdc1977443c92f6c42e57a1c585aa59430))
-
-

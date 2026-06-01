@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "private-gpt"
-version = "0.6.2"
+version = "0.6.3"
 description = "VaultMind — a private RAG system for secure local document intelligence"
 authors = ["Rushi021"]
 
