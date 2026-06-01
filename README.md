@@ -1,6 +1,6 @@
-# VaultMind
+# PrivateRAG
 
-**VaultMind** — a fully private, local RAG system for secure document intelligence. Your data never leaves your machine.
+**PrivateRAG** — a fully private, local RAG system for secure document intelligence. Your data never leaves your machine.
 
 Portfolio project by [Rushi021](https://github.com/Rushi021). Clone and run on your laptop:
 
@@ -9,15 +9,15 @@ git clone https://github.com/Rushi021/private-RAG-system.git
 cd private-RAG-system
 ```
 
-## Problem VaultMind solves
+## Problem PrivateRAG solves
 
 Teams and developers often need to ask questions over sensitive documents (clinical notes, SOPs, internal guidelines, policy docs) without sending that data to public SaaS tools.
 
-Most generic AI chat tools are not designed for strict privacy boundaries, local control, or domain-specific retrieval quality. **VaultMind** is a private, controllable RAG backend that runs locally and can be exposed only where you choose.
+Most generic AI chat tools are not designed for strict privacy boundaries, local control, or domain-specific retrieval quality. **PrivateRAG** is a private, controllable RAG backend that runs locally and can be exposed only where you choose.
 
-## What VaultMind is
+## What PrivateRAG is
 
-**VaultMind** is a Retrieval-Augmented Generation (RAG) system (built on PrivateGPT foundations) focused on secure, local document intelligence.
+**PrivateRAG** is a Retrieval-Augmented Generation (RAG) system (built on PrivateGPT foundations) focused on secure, local document intelligence.
 
 It lets you:
 - ingest your own documents,
@@ -25,7 +25,7 @@ It lets you:
 - query them through an OpenAI-style API,
 - use a built-in Gradio UI for interactive usage.
 
-By default, **VaultMind** is designed for local/private operation, with optional cloud model integrations based on configuration.
+By default, **PrivateRAG** is designed for local/private operation, with optional cloud model integrations based on configuration.
 
 ## What it is good at
 
@@ -81,7 +81,7 @@ make dev-windows
 
 ### 5) Docker (local build only)
 
-From the repository root, build and start services from source (no published **VaultMind** image is required):
+From the repository root, build and start services from source (no published **PrivateRAG** image is required):
 
 ```bash
 docker compose up --build
@@ -104,5 +104,5 @@ Dependency images (e.g. Ollama, Traefik) may still be pulled from public registr
 
 ## Notes
 
-- **VaultMind** is an independently maintained portfolio project and is not the official upstream PrivateGPT repository.
+- **PrivateRAG** is an independently maintained portfolio project and is not the official upstream PrivateGPT repository.
 - Derived from the open-source PrivateGPT codebase, licensed under Apache-2.0. See [`LICENSE`](LICENSE).
